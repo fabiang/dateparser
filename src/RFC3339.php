@@ -17,13 +17,15 @@ class RFC3339 extends Parser
             $tokens[$value['token']] = $value['value'];
         }
 
-        $microseconds = 0;
-        if (isset($tokens['microseconds'])) {
-            $microseconds = $tokens['microseconds'];
+        $parseString = 'Y-m-d\TH:i:s';
+        $microseconds = '';
+        if (isset($tokens['microsecond'])) {
+            $parseString = 'Y-m-d\TH:i:s.u';
+            $microseconds = '.' . substr($tokens['microsecond'], 0, 6);
         }
 
         $dateString = sprintf(
-            '%d-%02d-%02dT%02d:%02d:%02d.%d',
+            '%d-%02d-%02dT%02d:%02d:%02d%s',
             $tokens['year'], 
             $tokens['month'],
             $tokens['day'],
@@ -34,16 +36,22 @@ class RFC3339 extends Parser
         );
 
         if (isset($tokens['timezone_utc'])) {
+            $parseString .= 'O';
+
             $dateString .= '+0000';
         } elseif (isset($tokens['timezone_positive'])) {
+            $parseString .= 'O';
+
             $timezoneValue = $this->getTimezoneValue($tokens, false);
             $dateString .= '+' . $timezoneValue;
         } elseif (isset($tokens['timezone_negative'])) {
+            $parseString .= 'O';
+
             $timezoneValue = $this->getTimezoneValue($tokens, true);
             $dateString .= '-' . $timezoneValue;
         }
 
-        $dateObject = new DateTime($dateString);
+        $dateObject = DateTime::createFromFormat($parseString, $dateString);
         return $dateObject;
     }
 
