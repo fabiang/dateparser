@@ -4,6 +4,9 @@ Date parsing library supporting the full format RFC3339.
 
 *Note:* The Api is considered unstable
 
+[![Latest Stable Version](https://poser.pugx.org/fabiang/dateparser/version)](https://packagist.org/packages/fabiang/dateparser)
+[![License](https://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)
+
 ## Installation
 
 Run Composer with:
