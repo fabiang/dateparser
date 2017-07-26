@@ -6,6 +6,7 @@ Date parsing library supporting the full format RFC3339.
 
 [![Latest Stable Version](https://poser.pugx.org/fabiang/dateparser/version)](https://packagist.org/packages/fabiang/dateparser)
 [![License](https://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)
+[![Build Status](https://travis-ci.org/fabiang/dateparser.svg?branch=master)](https://travis-ci.org/fabiang/dateparser)
 
 ## Installation
 
