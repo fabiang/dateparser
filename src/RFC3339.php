@@ -57,7 +57,7 @@ class RFC3339 extends Parser
         return $dateObject;
     }
 
-    private function getTimezoneValue($tokens, $negative = false)
+    private function getTimezoneValue(array $tokens, bool $negative = false): string
     {
         if (isset($tokens['timezone_value'])) {
             return $tokens['timezone_value'];

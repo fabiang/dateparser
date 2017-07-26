@@ -14,7 +14,7 @@ abstract class Parser implements ParserInterface
 
     protected $path;
 
-    public function __construct($path = self::DEFAULT_PATH)
+    public function __construct(string $path = self::DEFAULT_PATH)
     {
         $this->path = $path;
     }
