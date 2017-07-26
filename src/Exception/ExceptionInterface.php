@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types = 1);
+
 namespace Fabiang\Dateparser\Exception;
 
 /**
@@ -6,4 +9,5 @@ namespace Fabiang\Dateparser\Exception;
  */
 interface ExceptionInterface
 {
+
 }

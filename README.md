@@ -21,8 +21,10 @@ composer require fabiang/dateparser=@dev
 Parsing an RFC3339 datetime string:
 
 ```php
+use Fabiang\Dateparser\RFC3339;
+
 $parser = new RFC3339();
-$parser->parse('2017-07-25T18:37:40+02:00');
+$datetime = $parser->parse('2017-07-25T18:37:40+02:00'); // DateTime object
 ```
 
 The following formats are supported:
