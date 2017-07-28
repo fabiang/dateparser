@@ -1,48 +1,48 @@
-%token year                                    \d\d\d\d                                                                                       -> month
-%token month:month                             01|02|03|04|05|06|07|08|09|10|11|12                                                            -> day
-%token day:day                                 01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31   -> sep
+%token T_YEAR                                  \d\d\d\d                                                                                       -> month
+%token month:T_MONTH                           01|02|03|04|05|06|07|08|09|10|11|12                                                            -> day
+%token day:T_DAY                               01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31   -> sep
 
-%token month:date_separator                    -
-%token day:date_separator                      -
+%token month:T_DATE_SEPARATOR                  -
+%token day:T_DATE_SEPARATOR                    -
 
-%token sep:time_from_date_separator            T                                                                                              -> hour
+%token sep:T_TIME_FORM_DATE_SEPARATOR          T                                                                                              -> hour
 
-%token hour:hour                               \d{2}                                                                                          -> minute
-%token minute:minute                           \d{2}                                                                                          -> second
-%token second:second                           \d{2}                                                                                          -> timezone
+%token hour:T_HOUR                             \d{2}                                                                                          -> minute
+%token minute:T_MINUTE                         \d{2}                                                                                          -> second
+%token second:T_SECOND                         \d{2}                                                                                          -> timezone
 
-%token time_seperator                           :
-%token minute:time_seperator                    :
-%token second:time_seperator                    :
+%token T_TIME_SEPARATOR                         :
+%token minute:T_TIME_SEPARATOR                  :
+%token second:T_TIME_SEPARATOR                  :
 
 
-%token timezone:microseconds_separator          \.                                                                                            -> microsecond
-%token microsecond:microsecond                  \d+                                                                                           -> timezone
+%token timezone:T_MICROSECONDS_SEPARATOR        \.                                                                                            -> microsecond
+%token microsecond:T_MICROSECOND                \d+                                                                                           -> timezone
 
-%token timezone:timezone_positive               \+
-%token timezone:timezone_negative               -
-%token timezone:timezone_utc                    Z
+%token timezone:T_TIMEZONE_POSITIVE             \+
+%token timezone:T_TIMEZONE_NEGATIVE             -
+%token timezone:T_TIMEZONE_UTC                  Z
 
-%token timezone:timezone_value                  \d{4}                                                                                         -> default
-%token timezone:_timezone                       \d{2}                                                                                         -> timezone_seperated
-%token timezone_seperated:timezone_             \d{2}                                                                                         -> default
+%token timezone:T_TIMEZONE_VALUE                \d{4}                                                                                         -> default
+%token timezone:T_TIMEZONE_LEFT                 \d{2}                                                                                         -> timezone_seperated
+%token timezone_seperated:T_TIMEZONE_RIGHT      \d{2}                                                                                         -> default
 
-%token timezone_seperated:timezone_separator    :
+%token timezone_seperated:T_TIMEZONE_SEPARATOR  :
 
 #datestring:
-    date() ::time_from_date_separator:: time() ( microseconds() )? ( timezone() )?
+    date() ::T_TIME_FORM_DATE_SEPARATOR:: time() ( microseconds() )? ( timezone() )?
 
 date:
-    <year> ::date_separator:: <month> ::date_separator:: <day>
+    <T_YEAR> ::T_DATE_SEPARATOR:: <T_MONTH> ::T_DATE_SEPARATOR:: <T_DAY>
 
 time:
-    <hour> ::time_seperator:: <minute> ::time_seperator:: <second>
+    <T_HOUR> ::T_TIME_SEPARATOR:: <T_MINUTE> ::T_TIME_SEPARATOR:: <T_SECOND>
 
 microseconds:
-    ::microseconds_separator:: <microsecond>
+    ::T_MICROSECONDS_SEPARATOR:: <T_MICROSECOND>
 
 timezone:
-    <timezone_utc> | ( ( <timezone_positive> | <timezone_negative> ) timezone_string() )
+    <T_TIMEZONE_UTC> | ( ( <T_TIMEZONE_POSITIVE> | <T_TIMEZONE_NEGATIVE> ) timezone_string() )
 
 timezone_string:
-    (<timezone_value> | <_timezone> ::timezone_separator:: <timezone_>)
+    (<T_TIMEZONE_VALUE> | <T_TIMEZONE_LEFT> ::T_TIMEZONE_SEPARATOR:: <T_TIMEZONE_RIGHT>)
