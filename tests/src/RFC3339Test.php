@@ -182,6 +182,18 @@ final class RFC3339Test extends TestCase
                 'timezone'     => -14400,
                 'microseconds' => 0
             ],
+            [
+                'date'         => '2017-07-28T12:39:55.867906479+02:00',
+                'year'         => '2017',
+                'month'        => '07',
+                'day'          => '28',
+                'hour'         => '12',
+                'minute'       => '39',
+                'second'       => '55',
+                'timezone'     => 7200,
+                'microseconds' => 867906,
+            ],
+
         ];
     }
 }

@@ -1,11 +1,13 @@
-%token year                                    \d\d\d\d
-%token month                                   01|02|03|04|05|06|07|08|09|10|11|12                                                            -> day
-%token day:day                                 01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31   -> default
+%token year                                    \d\d\d\d                                                                                       -> month
+%token month:month                             01|02|03|04|05|06|07|08|09|10|11|12                                                            -> day
+%token day:day                                 01|02|03|04|05|06|07|08|09|10|11|12|13|14|15|16|17|18|19|20|21|22|23|24|25|26|27|28|29|30|31   -> sep
 
-%token date_separator                          -
+%token month:date_separator                    -
 %token day:date_separator                      -
 
-%token hour                                    \d{2}                                                                                          -> minute
+%token sep:time_from_date_separator            T                                                                                              -> hour
+
+%token hour:hour                               \d{2}                                                                                          -> minute
 %token minute:minute                           \d{2}                                                                                          -> second
 %token second:second                           \d{2}                                                                                          -> timezone
 
@@ -13,7 +15,6 @@
 %token minute:time_seperator                    :
 %token second:time_seperator                    :
 
-%token time_from_date_separator                 T
 
 %token timezone:microseconds_separator          \.                                                                                            -> microsecond
 %token microsecond:microsecond                  \d+                                                                                           -> timezone
