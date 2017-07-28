@@ -13,7 +13,7 @@ Date parsing library supporting the full format RFC3339.
 Run Composer with:
 
 ```
-composer require fabiang/dateparser=@dev
+composer require fabiang/dateparser
 ```
 
 ## Usage
