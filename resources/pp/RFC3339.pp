@@ -30,7 +30,10 @@
 %token timezone_seperated:timezone_separator    :
 
 #datestring:
-    <year> ::date_separator:: <month> ::date_separator:: <day> ::time_from_date_separator:: time() ( microseconds() )? ( timezone() )?
+    date() ::time_from_date_separator:: time() ( microseconds() )? ( timezone() )?
+
+date:
+    <year> ::date_separator:: <month> ::date_separator:: <day>
 
 time:
     <hour> ::time_seperator:: <minute> ::time_seperator:: <second>
