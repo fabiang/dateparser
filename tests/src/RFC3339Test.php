@@ -23,7 +23,7 @@ final class RFC3339Test extends TestCase
      * Sets up the fixture, for example, opens a network connection.
      * This method is called before a test is executed.
      */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->object = new RFC3339();
     }
@@ -32,7 +32,7 @@ final class RFC3339Test extends TestCase
      * @covers ::parse
      * @dataProvider provideValidDateStrings
      */
-    public function testParse($date, $year, $month, $day, $hour, $minute, $second, $timezone, $microseconds)
+    public function testParse($date, $year, $month, $day, $hour, $minute, $second, $timezone, $microseconds): void
     {
         $dateObject = $this->object->parse($date);
         $this->assertSame("$year-$month-$day", $dateObject->format('Y-m-d'));
