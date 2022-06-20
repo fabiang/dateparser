@@ -16,8 +16,9 @@
     <file>tests</file>
 
     <!-- Include all rules from Laminas Coding Standard -->
-    <rule ref="PSR2" />
-    <rule ref="SlevomatCodingStandard.Commenting.ForbiddenComments.CommentForbidden">
-        <exclude name="SlevomatCodingStandard.Commenting.ForbiddenComments.CommentForbidden"/>
+    <rule ref="LaminasCodingStandard" />
+    <!-- This breaks our code, remove it -->
+    <rule ref="SlevomatCodingStandard.Classes.ModernClassNameReference">
+        <severity>0</severity>
     </rule>
 </ruleset>

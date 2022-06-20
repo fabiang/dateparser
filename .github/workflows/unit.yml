@@ -1,11 +1,6 @@
 name: Unit Tests
 
-on:
-  push:
-    branches:
-    - '*'
-    pull_request:
-    - '*'
+on: [push, pull_request]
 
 jobs:
   unittest:
@@ -13,10 +8,16 @@ jobs:
 
     strategy:
       matrix:
-        php_version: ['7.4', '8.0', '8.1']
+        php:
+        - version: 7.4
+          coverage: false
+        - version: 8.0
+          coverage: true
+        - version: 8.1
+          coverage: false
         prefer-lowest: ['', '--prefer-lowest']
 
-    name: Unit Tests - PHP ${{ matrix.php_version }} ${{ matrix.prefer-lowest }}
+    name: Unit Tests - PHP ${{ matrix.php.version }} ${{ matrix.prefer-lowest }}
 
     steps:
     - uses: actions/checkout@v2
@@ -24,7 +25,8 @@ jobs:
     - name: Install PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: ${{ matrix.php_version }}
+        php-version: ${{ matrix.php.version }}
+        extensions: mbstring
 
     - name: Validate composer.json and composer.lock
       run: composer validate --strict
@@ -41,10 +43,26 @@ jobs:
     - name: Remove static analyse tools
       run: |
          composer remove --dev --with-all-dependencies --ignore-platform-reqs \
-            squizlabs/php_codesniffer vimeo/psalm slevomat/coding-standard
+            squizlabs/php_codesniffer \
+            vimeo/psalm \
+            slevomat/coding-standard \
+            laminas/laminas-coding-standard
 
-    - name: Install dependencies
+    - name: Update dependencies
       run: composer update --prefer-dist --no-progress --with-all-dependencies ${{ matrix.prefer-lowest }}
 
     - name: Run test suite
-      run: ./vendor/bin/phpunit --testsuite=unit --verbose --order-by=random
+      if: ${{ ! matrix.php.coverage }}
+      run: ./vendor/bin/phpunit --verbose
+
+    - name: Run test suite with code coverage
+      if: ${{ matrix.php.coverage }}
+      run: ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml
+      env:
+        XDEBUG_MODE: coverage
+
+    - name: Update code coverage to Scrutinizer
+      if: ${{ matrix.php.coverage }}
+      run: |
+        wget -q https://scrutinizer-ci.com/ocular.phar
+        php ocular.phar code-coverage:upload --format=php-clover build/logs/clover.xml || true

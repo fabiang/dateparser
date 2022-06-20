@@ -4,12 +4,15 @@ declare(strict_types=1);
 
 namespace Fabiang\Dateparser;
 
-use Hoa\File\Read as HoaFileReader;
-use Hoa\Compiler\Llk\Llk;
-use Hoa\Compiler\Llk\TreeNode;
 use Fabiang\Dateparser\Exception\LoadDefinitionException;
+use Phplrt\Compiler\Compiler;
 
-abstract class Parser implements ParserInterface
+use function file_exists;
+use function file_get_contents;
+use function is_readable;
+use function sprintf;
+
+abstract class AbstractParser implements ParserInterface
 {
     public const DEFAULT_PATH = __DIR__ . '/../resources/pp';
 
@@ -20,29 +23,31 @@ abstract class Parser implements ParserInterface
         $this->path = $path;
     }
 
-    protected function baseParse(string $name, string $content): TreeNode
+    protected function baseParse(string $name, string $content): iterable
     {
-        $compiler = Llk::load($this->loadPP($name));
+        $compiler = new Compiler();
+        $compiler->load($this->loadPP($name));
         return $compiler->parse($content);
     }
 
-    protected function loadPP(string $name): HoaFileReader
+    protected function loadPP(string $name): string
     {
         $file = $this->path . '/' . $name . '.pp';
-        if (!file_exists($file)) {
+
+        if (! file_exists($file)) {
             throw new LoadDefinitionException(sprintf(
                 "Unable to load definition file '%s'",
                 $file
             ));
         }
 
-        if (!is_readable($file)) {
+        if (! is_readable($file)) {
             throw new LoadDefinitionException(sprintf(
                 "Definition file '%s' is not readable",
                 $file
             ));
         }
 
-        return new HoaFileReader($file);
+        return file_get_contents($file);
     }
 }

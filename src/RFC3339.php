@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace Fabiang\Dateparser;
 
 use DateTime;
+use Phplrt\Lexer\Token\Token;
 
-class RFC3339 extends Parser
+use function sprintf;
+use function substr;
+
+class RFC3339 extends AbstractParser
 {
     public const T_YEAR              = 'T_YEAR';
     public const T_MONTH             = 'T_MONTH';
@@ -27,15 +31,17 @@ class RFC3339 extends Parser
         $dateToken = $this->baseParse('RFC3339', $string);
 
         $tokens = [];
-        foreach ($dateToken->getChildren() as $child) {
-            $value = $child->getValue();
-            $tokens[$value['token']] = $value['value'];
+        foreach ($dateToken as $subtokens) {
+            /** @var Token $token */
+            foreach ($subtokens as $token) {
+                $tokens[$token->getName()] = $token->getValue();
+            }
         }
 
-        $parseString = 'Y-m-d\TH:i:s';
+        $parseString  = 'Y-m-d\TH:i:s';
         $microseconds = '';
         if (isset($tokens[self::T_MICROSECOND])) {
-            $parseString = 'Y-m-d\TH:i:s.u';
+            $parseString  = 'Y-m-d\TH:i:s.u';
             $microseconds = '.' . substr($tokens[self::T_MICROSECOND], 0, 6);
         }
 
@@ -52,19 +58,18 @@ class RFC3339 extends Parser
 
         if (isset($tokens[self::T_TIMEZONE_UTC])) {
             $parseString .= 'O';
-            $dateString .= '+0000';
+            $dateString  .= '+0000';
         } elseif (isset($tokens[self::T_TIMEZONE_POSITIVE])) {
-            $parseString .= 'O';
+            $parseString  .= 'O';
             $timezoneValue = $this->getTimezoneValue($tokens);
-            $dateString .= '+' . $timezoneValue;
+            $dateString   .= '+' . $timezoneValue;
         } elseif (isset($tokens[self::T_TIMEZONE_NEGATIVE])) {
-            $parseString .= 'O';
+            $parseString  .= 'O';
             $timezoneValue = $this->getTimezoneValue($tokens);
-            $dateString .= '-' . $timezoneValue;
+            $dateString   .= '-' . $timezoneValue;
         }
 
-        $dateObject = DateTime::createFromFormat($parseString, $dateString);
-        return $dateObject;
+        return DateTime::createFromFormat($parseString, $dateString);
     }
 
     private function getTimezoneValue(array $tokens): string
