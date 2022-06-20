@@ -13,7 +13,7 @@ jobs:
 
     strategy:
       matrix:
-        php_version: ['7.1', '7.3', '7.4', '8.0']
+        php_version: ['7.4', '8.0', '8.1']
         prefer-lowest: ['', '--prefer-lowest']
 
     name: Unit Tests - PHP ${{ matrix.php_version }} ${{ matrix.prefer-lowest }}
@@ -37,6 +37,12 @@ jobs:
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
           ${{ runner.os }}-php-
+
+    - name: Remove static analyse tools
+      run: |
+         composer remove --dev --with-all-dependencies --ignore-platform-reqs \
+            squizlabs/php_codesniffer vimeo/psalm slevomat/coding-standard
+
     - name: Install dependencies
       run: composer update --prefer-dist --no-progress --with-all-dependencies ${{ matrix.prefer-lowest }}
 

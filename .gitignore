@@ -2,3 +2,4 @@
 /tests/logs/*
 !/tests/logs/.gitkeep
 .phpunit.result.cache
+.phpcs-cache

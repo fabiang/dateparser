@@ -16,14 +16,13 @@ Date parsing library supporting the full format RFC3339. The following formats a
 2017-07-25T18:37:40.1234567890-04:00
 ```
 
-*Note:* PHP only supports 6 digit microseconds. This library cut the last digits off.
+**Note:** PHP only supports 6 digit microseconds. This library cut the last digits off.
 
-[![Latest Stable Version](http://poser.pugx.org/fabiang/dateparser/v)](https://packagist.org/packages/fabiang/dateparser)
-[![Total Downloads](http://poser.pugx.org/fabiang/dateparser/downloads)](https://packagist.org/packages/fabiang/dateparser)
-[![Latest Unstable Version](http://poser.pugx.org/fabiang/dateparser/v/unstable)](https://packagist.org/packages/fabiang/dateparser)
-[![License](http://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)
 [![PHP Version Require](http://poser.pugx.org/fabiang/dateparser/require/php)](https://packagist.org/packages/fabiang/dateparser)
+[![Latest Stable Version](http://poser.pugx.org/fabiang/dateparser/v)](https://packagist.org/packages/fabiang/dateparser)
+[![License](http://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)  
 [![Unit Tests](https://github.com/fabiang/dateparser/actions/workflows/unit.yml/badge.svg)](https://github.com/fabiang/dateparser/actions/workflows/unit.yml)
+[![Static Code Analysis](https://github.com/fabiang/dateparser/actions/workflows/static.yml/badge.svg)](https://github.com/fabiang/dateparser/actions/workflows/static.yml)
 
 ## Installation
 
@@ -43,10 +42,6 @@ use Fabiang\Dateparser\RFC3339;
 $parser = new RFC3339();
 $datetime = $parser->parse('2017-07-25T18:37:40+02:00'); // DateTime object
 ```
-
-## Credits
-
-Thanks to the Hoa Project for their nice [Hoa\Compiler package](https://github.com/hoaproject/Compiler).
 
 ## Licence
 

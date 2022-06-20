@@ -7,12 +7,13 @@ namespace Fabiang\Dateparser;
 use Hoa\File\Read as HoaFileReader;
 use Hoa\Compiler\Llk\Llk;
 use Hoa\Compiler\Llk\TreeNode;
+use Fabiang\Dateparser\Exception\LoadDefinitionException;
 
 abstract class Parser implements ParserInterface
 {
-    const DEFAULT_PATH = __DIR__ . '/../resources/pp';
+    public const DEFAULT_PATH = __DIR__ . '/../resources/pp';
 
-    protected $path;
+    protected string $path;
 
     public function __construct(string $path = self::DEFAULT_PATH)
     {

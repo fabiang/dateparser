@@ -14,10 +14,7 @@ use DateTime;
  */
 final class RFC3339Test extends TestCase
 {
-    /**
-     * @var RFC3339
-     */
-    private $object;
+    private RFC3339 $object;
 
     /**
      * Sets up the fixture, for example, opens a network connection.
@@ -32,8 +29,17 @@ final class RFC3339Test extends TestCase
      * @covers ::parse
      * @dataProvider provideValidDateStrings
      */
-    public function testParse($date, $year, $month, $day, $hour, $minute, $second, $timezone, $microseconds): void
-    {
+    public function testParse(
+        string $date,
+        string $year,
+        string $month,
+        string $day,
+        string $hour,
+        string $minute,
+        string $second,
+        int $timezone,
+        int $microseconds
+    ): void {
         $dateObject = $this->object->parse($date);
         $this->assertSame("$year-$month-$day", $dateObject->format('Y-m-d'));
         $this->assertSame("$hour:$minute:$second", $dateObject->format('H:i:s'));
@@ -44,7 +50,6 @@ final class RFC3339Test extends TestCase
         );
 
         $this->assertSame($microseconds, intval($dateObject->format('u')));
-
     }
 
     public function provideValidDateStrings(): array

@@ -8,19 +8,19 @@ use DateTime;
 
 class RFC3339 extends Parser
 {
-    const T_YEAR              = 'T_YEAR';
-    const T_MONTH             = 'T_MONTH';
-    const T_DAY               = 'T_DAY';
-    const T_HOUR              = 'T_HOUR';
-    const T_MINUTE            = 'T_MINUTE';
-    const T_SECOND            = 'T_SECOND';
-    const T_MICROSECOND       = 'T_MICROSECOND';
-    const T_TIMEZONE_UTC      = 'T_TIMEZONE_UTC';
-    const T_TIMEZONE_POSITIVE = 'T_TIMEZONE_POSITIVE';
-    const T_TIMEZONE_NEGATIVE = 'T_TIMEZONE_NEGATIVE';
-    const T_TIMEZONE_VALUE    = 'T_TIMEZONE_VALUE';
-    const T_TIMEZONE_LEFT     = 'T_TIMEZONE_LEFT';
-    const T_TIMEZONE_RIGHT    = 'T_TIMEZONE_RIGHT';
+    public const T_YEAR              = 'T_YEAR';
+    public const T_MONTH             = 'T_MONTH';
+    public const T_DAY               = 'T_DAY';
+    public const T_HOUR              = 'T_HOUR';
+    public const T_MINUTE            = 'T_MINUTE';
+    public const T_SECOND            = 'T_SECOND';
+    public const T_MICROSECOND       = 'T_MICROSECOND';
+    public const T_TIMEZONE_UTC      = 'T_TIMEZONE_UTC';
+    public const T_TIMEZONE_POSITIVE = 'T_TIMEZONE_POSITIVE';
+    public const T_TIMEZONE_NEGATIVE = 'T_TIMEZONE_NEGATIVE';
+    public const T_TIMEZONE_VALUE    = 'T_TIMEZONE_VALUE';
+    public const T_TIMEZONE_LEFT     = 'T_TIMEZONE_LEFT';
+    public const T_TIMEZONE_RIGHT    = 'T_TIMEZONE_RIGHT';
 
     public function parse(string $string): DateTime
     {
