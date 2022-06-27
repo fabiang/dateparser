@@ -5,7 +5,7 @@
 %token month:T_DATE_SEPARATOR                  -
 %token day:T_DATE_SEPARATOR                    -
 
-%token sep:T_TIME_FORM_DATE_SEPARATOR          T                                                                                              -> hour
+%token sep:T_TIME_FROM_DATE_SEPARATOR          T                                                                                              -> hour
 
 %token hour:T_HOUR                             \d{2}                                                                                          -> minute
 %token minute:T_MINUTE                         \d{2}                                                                                          -> second
@@ -14,7 +14,6 @@
 %token T_TIME_SEPARATOR                         :
 %token minute:T_TIME_SEPARATOR                  :
 %token second:T_TIME_SEPARATOR                  :
-
 
 %token timezone:T_MICROSECONDS_SEPARATOR        \.                                                                                            -> microsecond
 %token microsecond:T_MICROSECOND                \d+                                                                                           -> timezone
@@ -29,20 +28,26 @@
 
 %token timezone_seperated:T_TIMEZONE_SEPARATOR  :
 
-#datestring:
-    date() ::T_TIME_FORM_DATE_SEPARATOR:: time() ( microseconds() )? ( timezone() )?
+#datestring
+    : date() ::T_TIME_FROM_DATE_SEPARATOR:: time() ( microseconds() )? ( timezone() )?
+    ;
 
-date:
-    <T_YEAR> ::T_DATE_SEPARATOR:: <T_MONTH> ::T_DATE_SEPARATOR:: <T_DAY>
+date
+    : <T_YEAR> ::T_DATE_SEPARATOR:: <T_MONTH> ::T_DATE_SEPARATOR:: <T_DAY>
+    ;
 
-time:
-    <T_HOUR> ::T_TIME_SEPARATOR:: <T_MINUTE> ::T_TIME_SEPARATOR:: <T_SECOND>
+time
+    : <T_HOUR> ::T_TIME_SEPARATOR:: <T_MINUTE> ::T_TIME_SEPARATOR:: <T_SECOND>
+    ;
 
-microseconds:
-    ::T_MICROSECONDS_SEPARATOR:: <T_MICROSECOND>
+microseconds
+    : ::T_MICROSECONDS_SEPARATOR:: <T_MICROSECOND>
+    ;
 
-timezone:
-    <T_TIMEZONE_UTC> | ( ( <T_TIMEZONE_POSITIVE> | <T_TIMEZONE_NEGATIVE> ) timezone_string() )
+timezone
+    : <T_TIMEZONE_UTC> | ( ( <T_TIMEZONE_POSITIVE> | <T_TIMEZONE_NEGATIVE> ) timezone_string() )
+    ;
 
-timezone_string:
-    (<T_TIMEZONE_VALUE> | <T_TIMEZONE_LEFT> ::T_TIMEZONE_SEPARATOR:: <T_TIMEZONE_RIGHT>)
+timezone_string
+    : (<T_TIMEZONE_VALUE> | <T_TIMEZONE_LEFT> ::T_TIMEZONE_SEPARATOR:: <T_TIMEZONE_RIGHT>)
+    ;

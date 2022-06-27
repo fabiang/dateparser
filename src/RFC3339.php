@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Fabiang\Dateparser;
 
 use DateTime;
-use Phplrt\Lexer\Token\Token;
 
 use function sprintf;
 use function substr;
@@ -28,14 +27,11 @@ class RFC3339 extends AbstractParser
 
     public function parse(string $string): DateTime
     {
-        $dateToken = $this->baseParse('RFC3339', $string);
+        $parsedTokens = $this->baseParse('RFC3339', $string);
 
         $tokens = [];
-        foreach ($dateToken as $subtokens) {
-            /** @var Token $token */
-            foreach ($subtokens as $token) {
-                $tokens[$token->getName()] = $token->getValue();
-            }
+        foreach ($parsedTokens as $token) {
+            $tokens[$token->getName()] = $token->getValue();
         }
 
         $parseString  = 'Y-m-d\TH:i:s';
