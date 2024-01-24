@@ -21,8 +21,7 @@ Date parsing library supporting the full format RFC3339. The following formats a
 [![PHP Version Require](http://poser.pugx.org/fabiang/dateparser/require/php)](https://packagist.org/packages/fabiang/dateparser)
 [![Latest Stable Version](http://poser.pugx.org/fabiang/dateparser/v)](https://packagist.org/packages/fabiang/dateparser)
 [![License](http://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)  
-[![Unit Tests](https://github.com/fabiang/dateparser/actions/workflows/unit.yml/badge.svg)](https://github.com/fabiang/dateparser/actions/workflows/unit.yml)
-[![Static Code Analysis](https://github.com/fabiang/dateparser/actions/workflows/static.yml/badge.svg)](https://github.com/fabiang/dateparser/actions/workflows/static.yml)
+[![Continuous Integration](https://github.com/fabiang/dateparser/actions/workflows/ci.yml/badge.svg)](https://github.com/fabiang/dateparser/actions/workflows/ci.yml)
 
 ## Installation
 

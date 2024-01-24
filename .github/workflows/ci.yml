@@ -1,26 +1,58 @@
-name: Unit Tests
+name: Continuous Integration
 
 on: [push, pull_request]
 
 jobs:
-  unittest:
+  psalm:
+    name: Psalm
     runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
+      - name: Psalm
+        uses: docker://vimeo/psalm-github-actions
+        with:
+          security_analysis: true
+          report_file: results.sarif
+          composer_ignore_platform_reqs: true
+
+      - name: Upload Security Analysis results to GitHub
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: results.sarif
+
+      # we may use whatever way to install phpcs, just specify the path on the next step
+      # however, curl seems to be the fastest
+      - name: Install PHP_CodeSniffer
+        run: |
+          curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
+          php phpcs.phar --version
+      - uses: tinovyatkin/action-php-codesniffer@v1
+        with:
+          files: "**.php" # you may customize glob as needed
+          phpcs_path: php phpcs.phar
+          standard: phpcs.xml
+
+  unittest:
+    name: Unit Tests - PHP ${{ matrix.php.version }} ${{ matrix.prefer-lowest }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         php:
         - version: 7.4
           coverage: false
         - version: 8.0
-          coverage: true
+          coverage: false
         - version: 8.1
           coverage: false
+        - version: 8.2
+          coverage: true
+        - version: 8.3
+          coverage: false
         prefer-lowest: ['', '--prefer-lowest']
-
-    name: Unit Tests - PHP ${{ matrix.php.version }} ${{ matrix.prefer-lowest }}
-
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Install PHP
       uses: shivammathur/setup-php@v2
@@ -33,7 +65,7 @@ jobs:
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v2
+      uses: actions/cache@v3
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
@@ -53,11 +85,11 @@ jobs:
 
     - name: Run test suite
       if: ${{ ! matrix.php.coverage }}
-      run: ./vendor/bin/phpunit --verbose
+      run: ./vendor/bin/phpunit
 
     - name: Run test suite with code coverage
       if: ${{ matrix.php.coverage }}
-      run: ./vendor/bin/phpunit --verbose --coverage-clover=build/logs/clover.xml
+      run: ./vendor/bin/phpunit --coverage-clover=build/logs/clover.xml
       env:
         XDEBUG_MODE: coverage
 
