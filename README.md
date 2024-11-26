@@ -18,9 +18,9 @@ Date parsing library supporting the full format RFC3339. The following formats a
 
 **Note:** PHP only supports 6 digit microseconds. This library cut the last digits off.
 
-[![PHP Version Require](http://poser.pugx.org/fabiang/dateparser/require/php)](https://packagist.org/packages/fabiang/dateparser)
-[![Latest Stable Version](http://poser.pugx.org/fabiang/dateparser/v)](https://packagist.org/packages/fabiang/dateparser)
-[![License](http://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)  
+[![PHP Version Require](https://poser.pugx.org/fabiang/dateparser/require/php)](https://packagist.org/packages/fabiang/dateparser)
+[![Latest Stable Version](https://poser.pugx.org/fabiang/dateparser/v)](https://packagist.org/packages/fabiang/dateparser)
+[![License](https://poser.pugx.org/fabiang/dateparser/license)](https://packagist.org/packages/fabiang/dateparser)  
 [![Continuous Integration](https://github.com/fabiang/dateparser/actions/workflows/ci.yml/badge.svg)](https://github.com/fabiang/dateparser/actions/workflows/ci.yml)
 
 ## Installation
