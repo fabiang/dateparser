@@ -1,6 +1,6 @@
 /tests export-ignore
 /.github export-ignore
-/resources/pp/*.php export-ignore
+/resources/pp/*.pp export-ignore
 phpunit.xml.dist export-ignore
 psalm.xml export-ignore
 phpcs.xml export-ignore
