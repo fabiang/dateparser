@@ -5,10 +5,14 @@ declare(strict_types=1);
 namespace Fabiang\Dateparser;
 
 use DateTime;
+use Override;
 
 use function sprintf;
 use function substr;
 
+/**
+ * @psalm-api
+ */
 class RFC3339 extends AbstractParser
 {
     public const T_YEAR              = 'T_YEAR';
@@ -25,6 +29,7 @@ class RFC3339 extends AbstractParser
     public const T_TIMEZONE_LEFT     = 'T_TIMEZONE_LEFT';
     public const T_TIMEZONE_RIGHT    = 'T_TIMEZONE_RIGHT';
 
+    #[Override]
     public function parse(string $string): DateTime
     {
         $parsedTokens = $this->baseParse('RFC3339', $string);

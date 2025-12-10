@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Fabiang\Dateparser;
 
 use Fabiang\Dateparser\Exception\LoadDefinitionException;
+use Override;
 use Phplrt\Lexer\Lexer;
 use Phplrt\Lexer\Multistate;
 use Phplrt\Parser\BuilderInterface;
@@ -67,6 +68,7 @@ abstract class AbstractParser implements ParserInterface
                     /**
                      * {@inheritDoc}
                      */
+                    #[Override]
                     public function build(ContextInterface $context, $result)
                     {
                         $state = $context->getState();

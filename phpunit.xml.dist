@@ -1,25 +1,17 @@
-<phpunit
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.5/phpunit.xsd"
-    colors="true"
-    forceCoversAnnotation="true"
-    beStrictAboutChangesToGlobalState="true"
-    beStrictAboutOutputDuringTests="false"
-    beStrictAboutResourceUsageDuringSmallTests="true"
-    beStrictAboutTestsThatDoNotTestAnything="true"
-    beStrictAboutTodoAnnotatedTests="true">
-
+<?xml version="1.0"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/12.5/phpunit.xsd" 
+    colors="true" 
+    beStrictAboutChangesToGlobalState="true" 
+    beStrictAboutOutputDuringTests="false" 
+    beStrictAboutTestsThatDoNotTestAnything="true" 
+    cacheDirectory=".phpunit.cache" 
+    requireCoverageMetadata="true">
     <testsuites>
         <testsuite name="unit">
             <directory>tests/src/</directory>
         </testsuite>
     </testsuites>
-
-    <coverage>
-        <include>
-            <directory>src/</directory>
-        </include>
-    </coverage>
 
     <php>
         <ini name="error_reporting" value="-1"/>
@@ -28,5 +20,11 @@
         <ini name="memory_limit" value="-1"/>
     </php>
 
-    <logging></logging>
+    <logging/>
+
+    <source>
+        <include>
+            <directory>src/</directory>
+        </include>
+    </source>
 </phpunit>
