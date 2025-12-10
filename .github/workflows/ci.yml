@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6
 
       - name: Psalm
         uses: docker://vimeo/psalm-github-actions
@@ -18,7 +18,7 @@ jobs:
           composer_ignore_platform_reqs: true
 
       - name: Upload Security Analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v2
+        uses: github/codeql-action/upload-sarif@v4
         with:
           sarif_file: results.sarif
 
@@ -40,21 +40,15 @@ jobs:
     strategy:
       matrix:
         php:
-        - version: 7.4
-          coverage: false
-        - version: 8.0
-          coverage: false
-        - version: 8.1
-          coverage: false
-        - version: 8.2
-          coverage: false
         - version: 8.3
           coverage: true
         - version: 8.4
           coverage: false
+        - version: 8.5
+          coverage: false
         prefer-lowest: ['', '--prefer-lowest']
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6
 
     - name: Install PHP
       uses: shivammathur/setup-php@v2
@@ -67,7 +61,7 @@ jobs:
 
     - name: Cache Composer packages
       id: composer-cache
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: vendor
         key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
